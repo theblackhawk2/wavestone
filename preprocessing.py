@@ -16,6 +16,24 @@ X = data.ix[:, 1:13].values
 labels = data.ix[:, 0].values
 
 """
+Remplacement des valeurs manquantes 
+"""
+
+from sklearn.preprocessing import Imputer
+X_num = np.copy(X_n)
+X_num[X_num == '?'] = np.nan
+X_num = X_num.astype(float)
+imp_num = Imputer(missing_values=np.nan, strategy='mean')
+X_num = imp_num.fit_transform(X_num)
+
+"""
+Encodage des variables Catégorielle
+"""
+
+from sklearn.preprocessing import OneHotEncoder
+X_cat_bin = OneHotEncoder().fit_transform(X_cat).toarray()
+
+"""
 Normalisation des données 
 """
 
